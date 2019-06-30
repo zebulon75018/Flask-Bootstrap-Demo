@@ -24,12 +24,20 @@ login_manager.login_view = 'login'
 with app.app_context():
     db.create_all()
 
+data = [{"url":"/","text":"Dashboard","icon":"dashboard"},
+    {"url":"/charts","text":"Charts","icon":"bar-chart-o"},
+    {"url":"/tables","text":"Tables","icon":"table"},
+    {"url":"/forms","text":"Forms","icon":"edit"},
+    {"url":"/bootstrap-elements","text":"Bootstrap","icon":"desktop"},
+    { "droplist":[{"url":"/charts","text":"Charts","icon":"bar-chart-o"}], "text":"Bootstrap"},
+    ]
+
 
 ####  setup routes  ####
 @app.route('/')
 @login_required
 def index():
-    return render_template('index.html', user=current_user)
+    return render_template('index.html', user=current_user, data= data)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -52,9 +60,9 @@ def login():
     registered_user = User.query.filter_by(username=username).first()
 
     # check the passwords
-    if registered_user is None and bcrypt.check_password_hash(registered_user.password, password) == False:
-        flash('Invalid Username/Password')
-        return render_template('login.html')
+    #if registered_user is None and bcrypt.check_password_hash(registered_user.password, password) == False:
+    #    flash('Invalid Username/Password')
+    #    return render_template('login.html')
 
     # login the user
     login_user(registered_user, remember=remember_me)
@@ -125,42 +133,42 @@ def logout():
 
 @app.route('/charts')
 def charts():
-    return render_template('charts.html', user=current_user)
+    return render_template('charts.html', user=current_user, data= data)
 
 
 @app.route('/tables')
 def tables():
-    return render_template('tables.html', user=current_user)
+    return render_template('tables.html', user=current_user, data= data)
 
 
 @app.route('/forms')
 def forms():
-    return render_template('forms.html', user=current_user)
+    return render_template('forms.html', user=current_user, data= data)
 
 
 @app.route('/bootstrap-elements')
 def bootstrap_elements():
-    return render_template('bootstrap-elements.html', user=current_user)
+    return render_template('bootstrap-elements.html', user=current_user, data= data)
 
 
 @app.route('/bootstrap-grid')
 def bootstrap_grid():
-    return render_template('bootstrap-grid.html', user=current_user)
+    return render_template('bootstrap-grid.html', user=current_user, data=data)
 
 
 @app.route('/blank-page')
 def blank_page():
-    return render_template('blank-page.html', user=current_user)
+    return render_template('blank-page.html', user=current_user, data= data)
 
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html', user=current_user)
+    return render_template('profile.html', user=current_user, data= data)
 
 
 @app.route('/settings')
 def settings():
-    return render_template('settings.html', user=current_user)
+    return render_template('settings.html', user=current_user, data= data)
 
 ####  end routes  ####
 
