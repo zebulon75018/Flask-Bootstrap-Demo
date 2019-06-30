@@ -1,3 +1,7 @@
+Add few macro jinja2..
+
+
+
 # Flask-Bootstrap-Demo
 This is a simple web app demo using Flask, Flask-login, Flask-SQLAlchemy, and a SQLite3 database. 
 
