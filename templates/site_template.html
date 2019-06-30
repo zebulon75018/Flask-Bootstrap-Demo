@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    {% from "macros.html" import nav_link,sidebar %}
 <head>
 
     <meta charset="utf-8">
@@ -21,6 +22,7 @@
 
     {% block imports %}
     {% endblock %}
+
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.css" rel="stylesheet">
@@ -56,9 +58,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="/profile"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
+                          {{  nav_link("/profile","Profile","user") }}
                         <li>
                             <a href="/settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
                         </li>
@@ -71,6 +71,8 @@
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
+               {{sidebar(data)}}
+                <!--
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
                         <a href="/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
@@ -105,6 +107,7 @@
                         <a href="/blank-page"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                     </li>
                 </ul>
+                -->
             </div>
             <!-- /.navbar-collapse -->
         </nav>
@@ -128,7 +131,7 @@
 
     {% block footer %}
     {% endblock %}
-
+    
 </body>
 
 </html>

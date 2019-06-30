@@ -1,0 +1,77 @@
+{% macro nav_link(url, text,icon="") %}
+<li>
+    <a href="{{url}}"><i class="fa fa-fw fa-{{icon}}"></i> {{text}}</a>
+</li>
+{% endmacro %}
+
+{%macro sidebar( data ) %}
+{% if data is mapping %}
+            {%if 'droplist' in data %} 
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                 {{data["text"]}} <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo" class="collapse">
+            {% for d in data['droplist'] %}
+                    {{nav_link(d["url"],d["text"],d["icon"])}}
+            {% endfor %}
+            </ul>               
+            {%else%}
+            {{ nav_link(data["url"],data["text"],data["icon"]) }}
+            {%endif%}
+{% else %}
+<ul class="nav navbar-nav side-nav"> 
+{% for d in data %}
+      {{sidebar(d)}}
+  {% endfor %}
+</ul>
+  {% endif %}
+{% endmacro %}
+
+
+{% macro panelnumber(number,text,url="",icon="",color="primary") %}
+<div class="panel panel-{{color}}">
+        <div class="panel-heading">
+            <div class="row">
+                {% if icon !="" %}
+                <div class="col-xs-3">
+                    <i class="fa {{icon}}"></i>
+                </div>
+                {% endif %}
+                <div class="col-xs-9 text-right">
+                    <div class="huge">{{number}}</div>
+                    <div>{{text}}</div>
+                </div>
+            </div>
+        </div>
+        {% if url != "" %}
+        <a href="{{url}}">
+            <div class="panel-footer">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+        {% endif %}
+    </div>
+    {%endmacro%}
+
+
+{% macro team( label , text, peoples) %}
+<!-- https://bootsnipp.com/snippets/j6lz9 -->
+<ul class="one">
+        {% for p in peoples %}
+        <li class="transition">
+          <div class="wrapper"> <img class="transition" src="http://dooreight.com/codepen/people/img_01.png">
+            <ul class="social">
+              <li>{{p["description']}}</li>
+              <li class="transition"><a href="https://www.facebook.com"><img src="http://dooreight.com/codepen/people/twitter.svg"></a></li>
+              <li class="transition"><a href="#"><img src="http://dooreight.com/codepen/people/behance.svg"></a></li>
+              <li class="transition"><a href="#"><img src="http://dooreight.com/codepen/people/facebook.svg"></a></li>
+              <li class="transition"><a href="#"><img src="http://dooreight.com/codepen/people/skype.svg"></a></li>
+            </ul>
+            <span class="transition">
+            <h3>{{p["name"]}} <em>{{p["category"]}}</em></h3>
+            <img src="http://dooreight.com/codepen/people/more.svg"> </span> </div>
+        </li>
+        {% endfor %}
+      </ul>
+{% endmacro %}
